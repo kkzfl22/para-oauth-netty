@@ -1,8 +1,5 @@
 package com.paraview.oauth.infrastructure.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.Closeable;
 import java.io.IOException;
 
@@ -15,15 +12,12 @@ import java.io.IOException;
  */
 public class StreamUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(StreamUtils.class);
-
     public static void close(Closeable close) {
         if (null != close) {
             try {
                 close.close();
             } catch (IOException e) {
                 e.printStackTrace();
-                logger.error("close exception", e);
             }
         }
     }

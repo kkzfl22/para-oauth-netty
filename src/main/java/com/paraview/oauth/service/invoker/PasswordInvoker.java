@@ -11,9 +11,7 @@ import com.paraview.oauth.enums.AuthType;
 import com.paraview.oauth.enums.AuthorizeType;
 import com.paraview.oauth.exception.AuthException;
 import com.paraview.oauth.service.UserDetailService;
-import org.springframework.stereotype.Component;
 
-@Component
 public class PasswordInvoker implements AuthInvoker {
 
     private UserDetailService userDetailService;

@@ -19,9 +19,26 @@ public class ClientContext {
 
     private static Set<String> ALL_SUPPORT_TYPE = new HashSet<>();
 
+    private static ClientContext clientContext = new ClientContext();
+
     static {
         ALL_SUPPORT_TYPE.add(AuthorizeType.PASSWORD.value());
         ALL_SUPPORT_TYPE.add(AuthorizeType.AUTHORIZATION_CODE.value());
+        clientContext.create()
+                .setClientId("zhangsan")
+                .setClientSecret("123")
+                .setAuthorizeType("password,authorization_code")
+                .setExpireTime(60 * 60 * 1000)
+                .and()
+                .create()
+                .setClientId("lisi")
+                .setClientSecret("456")
+                .setAuthorizeType("password")
+                .and();
+    }
+
+    public static ClientContext getInstance(){
+        return clientContext;
     }
 
     public ClientApp create() {

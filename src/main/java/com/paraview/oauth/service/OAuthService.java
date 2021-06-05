@@ -9,21 +9,24 @@ import com.paraview.oauth.context.CacheContext;
 import com.paraview.oauth.context.ClientContext;
 import com.paraview.oauth.exception.AuthException;
 import com.paraview.oauth.service.invoker.AuthInvoker;
+import com.paraview.oauth.service.invoker.AuthorizationCodeInvoker;
+import com.paraview.oauth.service.invoker.PasswordInvoker;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Service
 public class OAuthService {
 
     private List<AuthInvoker> invokers;
 
     private ClientContext context;
 
-    public OAuthService(List<AuthInvoker> invokers, ClientContext context) {
-        this.invokers = invokers;
-        this.context = context;
+    public OAuthService() {
+        this.context = ClientContext.getInstance();
+        this.invokers = new ArrayList<>();
+        this.invokers.add(new PasswordInvoker(new UserDetailService(), this.context));
+        this.invokers.add(new AuthorizationCodeInvoker(this.context));
     }
 
     private AuthInvoker getInvoker(String grantType) {
@@ -55,7 +58,7 @@ public class OAuthService {
             throw new AuthException("response_type must be code");
         }
         ClientApp clientApp = context.getClient(req.getClient_id());
-        if(clientApp == null){
+        if (clientApp == null) {
             throw new AuthException("client not exists");
         }
         User user = CacheContext.getTokenCache().get(req.getToken());

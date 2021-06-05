@@ -2,7 +2,6 @@ package com.paraview.oauth.infrastructure.collection;
 
 
 import com.paraview.oauth.infrastructure.utils.StreamUtils;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -26,7 +25,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 0.0.1
  * @since 2017年6月13日 下午1:31:28
  */
-@Slf4j
 public class CacheKeyValue<K, V> {
 
 
@@ -235,7 +233,6 @@ public class CacheKeyValue<K, V> {
         }
         // 当外部文件不存在时，会报出文件不存在异常，此异常需忽略，后续加载内置文件即可
         catch (FileNotFoundException e) {
-            log.info("out file not exists : {}", path);
         }
 
         return outFileStream;
@@ -250,10 +247,8 @@ public class CacheKeyValue<K, V> {
             mapCache = (ConcurrentHashMap<K, V>[]) ooRead.readObject();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            log.error("CacheKeyValue loader ClassNotFoundException", e);
         } catch (IOException e) {
             e.printStackTrace();
-            log.error("CacheKeyValue loader IOException", e);
         } finally {
             StreamUtils.close(inputStream);
         }
@@ -290,10 +285,8 @@ public class CacheKeyValue<K, V> {
             ooWrite.writeObject(mapCache);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            log.error("CacheKeyValue save ClassNotFoundException", e);
         } catch (IOException e) {
             e.printStackTrace();
-            log.error("CacheKeyValue save IOException", e);
         }
     }
 

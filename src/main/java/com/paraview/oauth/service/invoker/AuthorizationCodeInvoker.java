@@ -9,9 +9,7 @@ import com.paraview.oauth.context.ClientContext;
 import com.paraview.oauth.enums.AuthType;
 import com.paraview.oauth.enums.AuthorizeType;
 import com.paraview.oauth.exception.AuthException;
-import org.springframework.stereotype.Component;
 
-@Component
 public class AuthorizationCodeInvoker implements AuthInvoker {
 
     private ClientContext clientContext;
